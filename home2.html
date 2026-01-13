@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Introduction & Performance Snapshot</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <style>
+        :root {
+            --black: #050505;
+            --navy: #0A1F44;
+            --yellow: #FFD400;
+            --white: #ffffff;
+            --soft-white: rgba(255,255,255,0.85);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            height: 100%;
+        }
+
+        body {
+            background: radial-gradient(circle at top, #0b0b0b 0%, #000000 55%);
+            font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+            color: var(--soft-white);
+            line-height: 1.75;
+            letter-spacing: 0.2px;
+        }
+
+        .page {
+            max-width: 1150px;
+            margin: 0 auto;
+            padding: 90px 40px 120px;
+        }
+
+        h1, h2 {
+            color: var(--white);
+            font-weight: 700;
+            letter-spacing: 0.6px;
+            position: relative;
+            padding-left: 22px;
+        }
+
+        h1 {
+            font-size: clamp(30px, 4vw, 38px);
+            margin-bottom: 36px;
+        }
+
+        h2 {
+            font-size: clamp(26px, 3.5vw, 32px);
+            margin: 90px 0 50px;
+        }
+
+        h1::before,
+        h2::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 4px;
+            width: 6px;
+            height: 80%;
+            background: linear-gradient(
+                180deg,
+                var(--yellow),
+                rgba(255,212,0,0.25)
+            );
+            border-radius: 4px;
+        }
+
+        p {
+            font-size: 16.8px;
+            margin-bottom: 26px;
+            max-width: 920px;
+            color: var(--soft-white);
+        }
+
+        /* Performance Snapshot – Premium Infographic */
+        .snapshot {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+            gap: 36px;
+            margin-top: 60px;
+        }
+
+        .card {
+            height: 160px;
+            background: linear-gradient(
+                180deg,
+                rgba(10,31,68,0.35),
+                rgba(10,31,68,0.15)
+            );
+            border: 1.5px solid rgba(255,255,255,0.12);
+            border-radius: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(
+                120deg,
+                transparent 30%,
+                rgba(255,212,0,0.08),
+                transparent 70%
+            );
+        }
+
+        .card::after {
+            content: "";
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 26px;
+            height: 26px;
+            background: radial-gradient(
+                circle,
+                var(--yellow) 0%,
+                rgba(255,212,0,0.4) 60%,
+                transparent 70%
+            );
+            border-radius: 50%;
+            box-shadow: 0 0 18px rgba(255,212,0,0.55);
+        }
+
+        /* Subtle separation */
+        .snapshot::before {
+            content: "";
+            grid-column: 1 / -1;
+            height: 1px;
+            background: linear-gradient(
+                to right,
+                transparent,
+                rgba(255,255,255,0.15),
+                transparent
+            );
+            margin-bottom: 30px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="page">
+
+        <h1>A Message from Your Partner</h1>
+
+        <p>Dear Team,</p>
+
+        <p>
+            Thank you for taking the time to connect regarding your transportation needs.
+            We are enthusiastic about the opportunity to partner with your team and
+            demonstrate our commitment to operational excellence.
+        </p>
+
+        <p>
+            Canary Yellow Logistics is more than a service provider; we aim to be a seamless
+            extension of your supply chain—a trusted partner dedicated to reliability,
+            transparency, and flawless execution.
+        </p>
+
+        <p>
+            We are fully prepared to begin managing your critical shipments immediately and
+            are confident in our ability to deliver on your strategic goals. This document
+            outlines our core capabilities and our unwavering commitment to your success.
+        </p>
+
+        <h2>Monthly Performance Snapshot</h2>
+
+        <div class="snapshot">
+            <div class="card"></div>
+            <div class="card"></div>
+            <div class="card"></div>
+            <div class="card"></div>
+        </div>
+
+    </div>
+
+</body>
+</html>
