@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Network Strength & Commitment</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- Icons -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+<!-- Leaflet Map -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+
+<style>
+:root {
+    --black:#050505;
+    --navy:#0A1F44;
+    --yellow:#FFD400;
+    --white:#ffffff;
+    --soft:rgba(255,255,255,0.88);
+}
+
+* {
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body {
+    background: radial-gradient(circle at top, #0b0b0b, #000000);
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    color:var(--soft);
+    line-height:1.75;
+}
+
+.page {
+    max-width:1200px;
+    margin:auto;
+    padding:90px 40px 120px;
+}
+
+h1,h2 {
+    color:var(--white);
+    font-weight:700;
+    position:relative;
+    padding-left:22px;
+}
+
+h1 {
+    font-size:38px;
+    margin-bottom:28px;
+}
+
+h2 {
+    font-size:30px;
+    margin:90px 0 40px;
+}
+
+h1::before,h2::before {
+    content:"";
+    position:absolute;
+    left:0;
+    top:6px;
+    width:6px;
+    height:80%;
+    background:linear-gradient(var(--yellow),transparent);
+}
+
+p {
+    font-size:17px;
+    max-width:980px;
+    margin-bottom:26px;
+}
+
+/* Infographic Numbers */
+.stats {
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+    gap:36px;
+    margin:70px 0 80px;
+}
+
+.stat {
+    background:linear-gradient(180deg,rgba(10,31,68,0.4),rgba(10,31,68,0.15));
+    border:1px solid rgba(255,255,255,0.12);
+    border-radius:22px;
+    padding:36px 28px 42px;
+}
+
+.stat .num {
+    font-size:44px;
+    font-weight:800;
+    color:var(--yellow);
+    margin-bottom:8px;
+}
+
+.stat .label {
+    font-size:14.5px;
+    letter-spacing:0.4px;
+}
+
+/* Capacity Highlight */
+.capacity {
+    font-size:17px;
+    max-width:980px;
+    margin-bottom:60px;
+}
+
+/* Commitment List */
+.commitment {
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
+    gap:30px;
+}
+
+.item {
+    display:flex;
+    gap:16px;
+    align-items:flex-start;
+}
+
+.item i {
+    color:var(--yellow);
+    font-size:20px;
+    margin-top:6px;
+}
+
+.item p {
+    margin:0;
+    font-size:16px;
+}
+
+/* Map */
+#map {
+    width:100%;
+    height:420px;
+    border-radius:22px;
+    border:1px solid rgba(255,255,255,0.15);
+    margin-bottom:80px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="page">
+
+<h1>Our Network is Your Advantage</h1>
+
+<p>
+We provide exceptional capacity and coverage through our vigorously vetted,
+multi-layered carrier network.
+</p>
+
+<div id="map"></div>
+
+<div class="stats">
+    <div class="stat">
+        <div class="num counter" data-target="50000">0</div>
+        <div class="label">Trucking Firms in Database</div>
+    </div>
+
+    <div class="stat">
+        <div class="num counter" data-target="47000">0</div>
+        <div class="label">Vetted Trucking Companies</div>
+    </div>
+
+    <div class="stat">
+        <div class="num counter" data-target="19000">0</div>
+        <div class="label">Owner-Operators</div>
+    </div>
+
+    <div class="stat">
+        <div class="num counter" data-target="2524">0</div>
+        <div class="label">Trusted Partner Carriers</div>
+    </div>
+</div>
+
+<p class="capacity">
+<strong>High-Volume Capacity:</strong><br>
+Our robust network gives us the proven ability to move
+80+ containers,
+70+ DryVans,
+90+ Flatbeds
+and all per day across critical US & Canada lanes.
+</p>
+
+<h2>Our Service Commitment</h2>
+
+<div class="commitment">
+    <div class="item">
+        <i class="fa-solid fa-check"></i>
+        <p>Transparent &amp; Fair Pricing: We align with your targets and eliminate surprises.</p>
+    </div>
+
+    <div class="item">
+        <i class="fa-solid fa-check"></i>
+        <p>Proactive Communication: Real-time tracking, instant updates, and immediate PODs.</p>
+    </div>
+
+    <div class="item">
+        <i class="fa-solid fa-check"></i>
+        <p>Single Point of Contact: You get a dedicated logistics partner who manages every detail.</p>
+    </div>
+
+    <div class="item">
+        <i class="fa-solid fa-check"></i>
+        <p>Flexible Payment Terms: We offer Net 10–30 terms to support your cash flow.</p>
+    </div>
+
+    <div class="item">
+        <i class="fa-solid fa-check"></i>
+        <p>Reliable Execution. Zero Excuses. We own the process from pickup to delivery.</p>
+    </div>
+</div>
+
+</div>
+
+<!-- Animated Counters -->
+<script>
+document.querySelectorAll('.counter').forEach(counter => {
+    let start = 1;
+    let end = +counter.dataset.target;
+    let step = Math.max(1, Math.floor(end / 120));
+
+    function run() {
+        start += step;
+        if (start >= end) {
+            counter.textContent = end.toLocaleString();
+            return;
+        }
+        counter.textContent = start.toLocaleString();
+        requestAnimationFrame(run);
+    }
+    run();
+});
+</script>
+
+<!-- Map -->
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+const map = L.map('map').setView([40, -96], 4);
+
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution:''
+}).addTo(map);
+
+const coverage = [
+    [34.0522, -118.2437], // LA
+    [29.7604, -95.3698],  // Houston
+    [41.8781, -87.6298],  // Chicago
+    [40.7128, -74.0060],  // NYC
+    [43.6532, -79.3832],  // Toronto
+    [45.4215, -75.6972]   // Ottawa
+];
+
+coverage.forEach(c => {
+    L.circleMarker(c, {
+        radius:8,
+        fillColor:"#FFD400",
+        color:"#FFD400",
+        weight:1,
+        fillOpacity:0.85
+    }).addTo(map);
+});
+</script>
+
+</body>
+</html>
