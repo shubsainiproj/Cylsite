@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Company Overview & Core Services</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- Leaflet Map -->
+<link
+  rel="stylesheet"
+  href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+/>
+
+<!-- Icons -->
+<link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+/>
+
+<style>
+:root {
+    --black:#050505;
+    --navy:#0A1F44;
+    --yellow:#FFD400;
+    --white:#ffffff;
+    --soft:white;
+}
+
+* {
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body {
+    background: radial-gradient(circle at top, #0b0b0b, #000);
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    color: rgba(255,255,255,0.88);
+    line-height:1.75;
+}
+
+.page {
+    max-width:1200px;
+    margin:auto;
+    padding:90px 40px 120px;
+}
+
+h1,h2 {
+    color:var(--white);
+    font-weight:700;
+    padding-left:22px;
+    position:relative;
+}
+
+h1 {
+    font-size:36px;
+    margin-bottom:36px;
+}
+
+h2 {
+    font-size:30px;
+    margin:90px 0 50px;
+}
+
+h1::before,h2::before {
+    content:"";
+    position:absolute;
+    left:0;
+    top:6px;
+    width:6px;
+    height:80%;
+    background:linear-gradient(var(--yellow),transparent);
+}
+
+p {
+    max-width:950px;
+    font-size:17px;
+    margin-bottom:28px;
+}
+
+/* Capabilities Grid */
+.grid {
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+    gap:36px;
+}
+
+.card {
+    background:linear-gradient(180deg,rgba(10,31,68,0.4),rgba(10,31,68,0.15));
+    border:1px solid rgba(255,255,255,0.12);
+    border-radius:20px;
+    padding:34px 30px 40px;
+    position:relative;
+}
+
+.card i {
+    font-size:34px;
+    color:var(--yellow);
+    margin-bottom:18px;
+}
+
+.card h3 {
+    font-size:20px;
+    margin-bottom:12px;
+    color:var(--white);
+}
+
+.card p {
+    font-size:15.5px;
+    margin-bottom:14px;
+}
+
+.counter {
+    font-size:26px;
+    font-weight:700;
+    color:var(--yellow);
+}
+
+/* Map */
+#map {
+    width:100%;
+    height:420px;
+    border-radius:22px;
+    margin-top:50px;
+    border:1px solid rgba(255,255,255,0.15);
+}
+</style>
+</head>
+
+<body>
+
+<div class="page">
+
+<h1>About Canary Yellow Logistics LLC</h1>
+
+<p>
+Canary Yellow Logistics (CYL) is a full-service logistics and supply chain management partner.
+We specialize in designing and executing seamless, data-driven transportation solutions that
+drive efficiency and reduce costs for our clients. From complex drayage to critical OTR shipments
+and integrated warehousing, we are your single point of contact for end-to-end freight management.
+</p>
+
+<h2>Core Capabilities</h2>
+
+<div class="grid">
+
+<div class="card">
+<i class="fa-solid fa-ship"></i>
+<h3>Drayage</h3>
+<p>Expert port and rail drayage.</p>
+<div class="counter" data-target="1417">0</div>
+</div>
+
+<div class="card">
+<i class="fa-solid fa-truck"></i>
+<h3>OTR (Over-the-Road)</h3>
+<p>Full Truckload, Dry Van, and Temperature-Controlled (Reefer).</p>
+<div class="counter" data-target="340">0</div>
+</div>
+
+<div class="card">
+<i class="fa-solid fa-triangle-exclamation"></i>
+<h3>Hazmat Drayage</h3>
+<p>Fully certified and insured for hazardous material transport.</p>
+<div class="counter" data-target="425">0</div>
+</div>
+
+<div class="card">
+<i class="fa-solid fa-crane"></i>
+<h3>OOG (Out-of-Gauge)</h3>
+<p>Specializing in complex, oversized, and project-based freight.</p>
+<div class="counter" data-target="9">0</div>
+</div>
+
+<div class="card">
+<i class="fa-solid fa-warehouse"></i>
+<h3>Transloads</h3>
+<p>Efficient cross-dock and transloading services nationwide.</p>
+</div>
+
+<div class="card">
+<i class="fa-solid fa-stopwatch"></i>
+<h3>Time-Critical</h3>
+<p>Expedited and guaranteed services for urgent shipments.</p>
+</div>
+
+<div class="card">
+<i class="fa-solid fa-map-location-dot"></i>
+<h3>Cross-Border</h3>
+<p>Seamless freight management for USA ↔ Canada lanes.</p>
+</div>
+
+<div class="card">
+<i class="fa-solid fa-network-wired"></i>
+<h3>Warehousing</h3>
+<p>Flexible storage solutions via 20,000+ partner warehouses nationwide.</p>
+</div>
+
+</div>
+
+<h2>Operational Coverage</h2>
+
+<div id="map"></div>
+
+</div>
+
+<!-- Counter Animation -->
+<script>
+const counters = document.querySelectorAll('.counter');
+
+counters.forEach(counter => {
+    let start = 1;
+    let end = +counter.dataset.target;
+    let speed = 40;
+
+    let update = () => {
+        let value = Math.ceil(start + (end - start) / speed);
+        start = value;
+        counter.textContent = value.toLocaleString();
+        if (value < end) requestAnimationFrame(update);
+        else counter.textContent = end.toLocaleString();
+    };
+    update();
+});
+</script>
+
+<!-- Map -->
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+const map = L.map('map').setView([39.5, -98.35], 4);
+
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: ''
+}).addTo(map);
+
+const locations = [
+    ["Los Angeles Port", 33.7405, -118.2775],
+    ["New York / NJ Port", 40.6681, -74.0451],
+    ["Houston Port", 29.7325, -95.2627],
+    ["Toronto", 43.6532, -79.3832],
+    ["Chicago", 41.8781, -87.6298]
+];
+
+locations.forEach(loc => {
+    L.marker([loc[1], loc[2]]).addTo(map);
+});
+</script>
+
+</body>
+</html>
