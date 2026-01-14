@@ -720,20 +720,68 @@
         }).addTo(map2);
 
         const coverage = [
-            ["Los Angeles", 34.0522, -118.2437],
-            ["Houston", 29.7604, -95.3698],
-            ["Chicago", 41.8781, -87.6298],
-            ["New York", 40.7128, -74.0060],
-            ["Toronto", 43.6532, -79.3832],
-            ["Ottawa", 45.4215, -75.6972],
-            ["Toronto", 43.6532, -79.3832],
-            ["Vancouver", 49.2827, -123.1207],
-            ["Montreal", 45.5019, -73.5674],
-            ["Calgary", 51.0447, -114.0719],
-            ["Edmonton", 53.5461, -113.4938],
-            ["Ottawa", 45.4215, -75.6972],
-            ["Winnipeg", 49.8951, -97.1384],
-            ["Halifax", 44.6488, -63.5752],
+
+        /* =========================
+           UNITED STATES – PORTS
+        ========================== */
+
+            ["Los Angeles / Long Beach, CA", 33.7542, -118.2165],   // LA/LB
+            ["Oakland, CA", 37.8044, -122.2712],
+            ["Norfolk, VA", 36.8508, -76.2859],
+            ["Baltimore, MD", 39.2904, -76.6122],
+            ["New York / New Jersey", 40.6840, -74.0062],
+            ["Houston, TX", 29.7604, -95.3698],
+            ["Mobile, AL", 30.6954, -88.0399],
+            ["New Orleans, LA", 29.9511, -90.0715],
+            ["Jacksonville, FL", 30.3322, -81.6557],
+            ["Tampa, FL", 27.9506, -82.4572],
+            ["Seattle / Tacoma, WA", 47.6062, -122.3321],
+
+        /* =========================
+           UNITED STATES – RAIL RAMPS
+        ========================== */
+
+            ["Chicago Rail Hub, IL", 41.8781, -87.6298],
+            ["Detroit Rail Hub, MI", 42.3314, -83.0458],
+            ["Nashville Rail Hub, TN", 36.1627, -86.7816],
+            ["El Paso Rail Hub, TX", 31.7619, -106.4850],
+            ["Norfolk Southern Ramp, OH", 40.4173, -82.9071],
+
+        /* =========================
+           CANADA – PORT & RAIL
+        ========================== */
+
+            ["Vancouver / Pitt Meadows, BC", 49.2345, -122.6890],
+            ["Calgary Intermodal Terminal, AB", 51.0447, -114.0719],
+            ["Canadian Pacific Railway (CPR)", 52.9399, -106.4509],
+
+        /* =========================
+           MAJOR CANADIAN CITIES
+        ========================== */
+
+            ["Toronto, ON", 43.6532, -79.3832],
+            ["Ottawa, ON", 45.4215, -75.6972],
+            ["Montreal, QC", 45.5019, -73.5674],
+            ["Edmonton, AB", 53.5461, -113.4938],
+            ["Winnipeg, MB", 49.8951, -97.1384],
+            ["Halifax, NS", 44.6488, -63.5752],
+
+        /* =========================
+           HIGH-VOLUME FREIGHT ZONES
+           (Aggregated Coverage)
+        ========================== */
+
+            ["California Statewide", 36.7783, -119.4179],
+            ["NY / NJ Freight Zone", 40.7128, -74.0060],
+            ["Norfolk VA Freight Zone", 36.8508, -76.2859],
+            ["Baltimore MD Freight Zone", 39.2904, -76.6122],
+            ["Houston TX Freight Zone", 29.7604, -95.3698],
+            ["Seattle / Tacoma Freight Zone", 47.6062, -122.3321],
+            ["Chicago IL Freight Zone", 41.8781, -87.6298],
+            ["El Paso TX Freight Zone", 31.7619, -106.4850],
+            ["Jacksonville FL Freight Zone", 30.3322, -81.6557],
+            ["Tampa FL Freight Zone", 27.9506, -82.4572]
+
         ];
 
         coverage.forEach(loc => {
@@ -749,5 +797,3 @@
 
 </body>
 </html>
-
-
