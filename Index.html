@@ -1,0 +1,1092 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Canary Yellow Logistics LLC - Capability Statement &amp; Partnership Overview</title>
+
+    <!-- Leaflet Map -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+    <style>
+        :root {
+            --black: #000000;
+            --navy: #0A1F44;
+            --yellow: #FFD400;
+            --white: #ffffff;
+            --soft-white: rgba(255,255,255,0.85);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--black);
+            font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+            color: var(--white);
+            line-height: 1.75;
+            letter-spacing: 0.2px;
+        }
+
+        /* Cover Styles */
+        .cover {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            text-align: center;
+            background: var(--black);
+            padding: 40px 0;
+            transition: opacity 1s ease-in-out;
+        }
+
+        .center {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            flex-grow: 1;
+        }
+
+        .logo {
+            max-width: 180px;
+            margin-bottom: 40px;
+            filter: drop-shadow(0 0 20px rgba(255, 212, 0, 0.15));
+            transition: transform 0.3s ease;
+        }
+
+        .logo:hover {
+            transform: scale(1.05);
+        }
+
+        .title {
+            font-size: clamp(28px, 4vw, 48px);
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            margin-bottom: 12px;
+        }
+
+        .subtitle {
+            font-size: clamp(16px, 2vw, 22px);
+            font-weight: 500;
+            color: var(--yellow);
+            letter-spacing: 2px;
+        }
+
+        footer {
+            font-size: clamp(10px, 1.5vw, 12px);
+            letter-spacing: 0.8px;
+            opacity: 0.85;
+            padding: 24px 20px;
+            max-width: 1200px;
+            text-align: center;
+        }
+
+        /* Page Styles */
+        .page {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 90px 40px 120px;
+            background: radial-gradient(circle at top, #0b0b0b 0%, #000000 55%);
+            color: var(--soft-white);
+            transition: opacity 1s ease-in-out;
+        }
+
+        h1, h2 {
+            color: var(--white);
+            font-weight: 700;
+            letter-spacing: 0.6px;
+            position: relative;
+            padding-left: 22px;
+        }
+
+        h1 {
+            font-size: clamp(24px, 4vw, 38px);
+            margin-bottom: 36px;
+        }
+
+        h2 {
+            font-size: clamp(20px, 3.5vw, 32px);
+            margin: 90px 0 50px;
+        }
+
+        h1::before,
+        h2::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 4px;
+            width: 6px;
+            height: 80%;
+            background: linear-gradient(180deg, var(--yellow), rgba(255,212,0,0.25));
+            border-radius: 4px;
+        }
+
+        p {
+            font-size: clamp(14px, 2vw, 16.8px);
+            margin-bottom: 26px;
+            max-width: 920px;
+            color: var(--soft-white);
+        }
+
+        /* Performance Snapshot */
+        .snapshot {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 36px;
+            margin-top: 60px;
+        }
+
+        .profile-buttons {
+            display: flex;
+            gap: 14px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .profile-buttons .btn {
+            padding: 10px 16px;
+            border-radius: 25px;
+            font-size: 14px;
+            text-decoration: none;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+            background: linear-gradient(135deg, #333, #111);
+            border: 1px solid rgba(255,255,255,0.15);
+        }
+
+        .profile-buttons .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(255, 215, 0, 0.25);
+        }
+
+        .btn.telegram { background: #0088cc; }
+        .btn.twitter { background: #000; }
+        .btn.instagram { background: linear-gradient(45deg, #f58529, #dd2a7b, #8134af); }
+        .btn.linkedin { background: #0a66c2; }
+
+        .project-links {
+            margin-top: 18px;
+            font-size: 14px;
+            opacity: 0.9;
+        }
+
+        .project-links a {
+            color: #ffd700;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .project-links a:hover {
+            text-decoration: underline;
+        }
+
+        .card {
+            height: auto;
+            min-height: 160px;
+            background: linear-gradient(180deg, rgba(10,31,68,0.35), rgba(10,31,68,0.15));
+            border: 1.5px solid rgba(255,255,255,0.12);
+            border-radius: 20px;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            padding: 20px;
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 8px 20px rgba(255,212,0,0.15);
+        }
+
+        .card::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(120deg, transparent 30%, rgba(255,212,0,0.08), transparent 70%);
+        }
+
+        .card::after {
+            content: "";
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 26px;
+            height: 26px;
+            background: radial-gradient(circle, var(--yellow) 0%, rgba(255,212,0,0.4) 60%, transparent 70%);
+            border-radius: 50%;
+            box-shadow: 0 0 18px rgba(255,212,0,0.55);
+        }
+
+        .card .num {
+            font-size: clamp(30px, 5vw, 44px);
+            font-weight: 800;
+            color: var(--yellow);
+            margin-bottom: 8px;
+            line-height: 1;
+        }
+
+        .card .label {
+            font-size: clamp(14px, 2.5vw, 18px);
+            font-weight: 500;
+            color: var(--white);
+            text-align: center;
+        }
+
+        /* Capabilities Grid */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 36px;
+        }
+
+        .card i {
+            font-size: clamp(24px, 4vw, 34px);
+            color: var(--yellow);
+            margin-bottom: 18px;
+        }
+
+        .card h3 {
+            font-size: clamp(16px, 2.5vw, 20px);
+            margin-bottom: 12px;
+            color: var(--white);
+        }
+
+        .card p {
+            font-size: clamp(13px, 2vw, 15.5px);
+            margin-bottom: 14px;
+        }
+
+        .counter {
+            font-size: clamp(20px, 3vw, 26px);
+            font-weight: 700;
+            color: var(--yellow);
+        }
+
+        .portfolio-head {
+            max-width: 980px;
+            margin-bottom: 40px;
+        }
+
+        .lead {
+            font-size: clamp(14px, 2.5vw, 18px);
+            opacity: 0.9;
+        }
+
+        .section-title {
+            margin: 90px 0 50px;
+        }
+
+        .section-title span {
+            color: var(--yellow);
+            font-weight: 600;
+        }
+
+        .enhanced-grid {
+            gap: 42px;
+        }
+
+        .card {
+            position: relative;
+            background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02));
+            backdrop-filter: blur(10px);
+            border-radius: 22px;
+            border: 1px solid rgba(255,255,255,0.12);
+            padding: 36px 32px 40px;
+            transition: transform .35s ease, box-shadow .35s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 25px 60px rgba(0,0,0,0.55);
+        }
+
+        .icon-wrap {
+            width: 58px;
+            height: 58px;
+            border-radius: 50%;
+            background: rgba(255,212,0,0.12);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 18px;
+        }
+
+        .icon-wrap i {
+            font-size: 26px;
+            color: var(--yellow);
+        }
+
+        .metric-row {
+            display: flex;
+            align-items: baseline;
+            gap: 10px;
+            margin-top: 8px;
+        }
+
+        .unit {
+            font-size: 14px;
+            opacity: 0.7;
+        }
+
+        /* Progress Bar */
+        .progress {
+            margin-top: 18px;
+            height: 6px;
+            border-radius: 6px;
+            background: rgba(255,255,255,0.12);
+            overflow: hidden;
+        }
+
+        .progress span {
+            display: block;
+            height: 100%;
+            width: var(--p);
+            background: linear-gradient(90deg, var(--yellow), #ffea80);
+        }
+
+        /* Map */
+        .map-container {
+            width: 100%;
+            height: 420px;
+            border-radius: 22px;
+            margin-top: 50px;
+            border: 1px solid rgba(255,255,255,0.15);
+        }
+
+        /* Infographic Numbers */
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 36px;
+            margin: 70px 0 80px;
+        }
+
+        .stat {
+            background: linear-gradient(180deg, rgba(10,31,68,0.4), rgba(10,31,68,0.15));
+            border: 1px solid rgba(255,255,255,0.12);
+            border-radius: 22px;
+            padding: 36px 28px 42px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .stat:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 8px 20px rgba(255,212,0,0.15);
+        }
+
+        .stat .num {
+            font-size: clamp(30px, 5vw, 44px);
+            font-weight: 800;
+            color: var(--yellow);
+            margin-bottom: 8px;
+        }
+
+        .stat .label {
+            font-size: clamp(12px, 2vw, 14.5px);
+            letter-spacing: 0.4px;
+        }
+
+        /* Capacity Highlight */
+        .capacity {
+            font-size: clamp(14px, 2vw, 17px);
+            max-width: 980px;
+            margin-bottom: 60px;
+        }
+
+        /* Commitment List */
+        .commitment {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        .item {
+            display: flex;
+            gap: 16px;
+            align-items: flex-start;
+        }
+
+        .item i {
+            color: var(--yellow);
+            font-size: 20px;
+            margin-top: 6px;
+        }
+
+        .item p {
+            margin: 0;
+            font-size: clamp(14px, 2vw, 16px);
+        }
+
+        /* Shipper Packet Box */
+        .packet {
+            margin-top: 50px;
+            background: linear-gradient(180deg, rgba(10,31,68,0.35), rgba(10,31,68,0.15));
+            border: 2px solid var(--navy);
+            border-radius: 22px;
+            padding: 40px 42px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .packet:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 8px 20px rgba(255,212,0,0.15);
+        }
+
+        .packet ul {
+            list-style: none;
+            margin-top: 26px;
+        }
+
+        .packet li {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 18px;
+            font-size: clamp(14px, 2vw, 16px);
+        }
+
+        .packet li i {
+            color: var(--yellow);
+            font-size: 18px;
+        }
+
+        /* Signature Block */
+        .signature-wrapper {
+            margin-top: 100px;
+            background: #ffffff;
+            color: #000000;
+            padding: 50px 48px;
+            border-radius: 18px;
+            max-width: 700px;
+        }
+
+        .signature-wrapper p {
+            margin-bottom: 14px;
+            font-size: clamp(13px, 2vw, 15.5px);
+            color: #000;
+        }
+
+        .signature-name {
+            font-size: clamp(16px, 2.5vw, 20px);
+            font-weight: 700;
+            margin-top: 18px;
+        }
+
+        .signature-title {
+            font-size: clamp(13px, 2vw, 15px);
+            margin-bottom: 12px;
+        }
+
+        /* Footer */
+        .footer {
+            margin-top: 100px;
+            text-align: center;
+            font-size: clamp(10px, 1.5vw, 12.5px);
+            opacity: 0.75;
+        }
+
+        /* Media Queries for Responsiveness */
+        @media (max-width: 1024px) {
+            .page {
+                padding: 70px 30px 100px;
+            }
+
+            .map-container {
+                height: 350px;
+            }
+
+            .snapshot, .grid, .stats, .commitment {
+                gap: 24px;
+            }
+
+            .card {
+                padding: 24px 20px 28px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .page {
+                padding: 50px 20px 80px;
+            }
+
+            h1 {
+                padding-left: 15px;
+            }
+
+            h1::before, h2::before {
+                width: 4px;
+            }
+
+            .map-container {
+                height: 300px;
+            }
+
+            .logo {
+                max-width: 150px;
+            }
+
+            .cover {
+                padding: 30px 0;
+            }
+
+            footer {
+                padding: 20px 15px;
+            }
+
+            .packet {
+                padding: 30px 32px;
+            }
+
+            .signature-wrapper {
+                padding: 40px 38px;
+                max-width: 100%;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .page {
+                padding: 40px 15px 60px;
+            }
+
+            h1 {
+                font-size: 24px;
+            }
+
+            h2 {
+                font-size: 20px;
+                margin: 60px 0 30px;
+            }
+
+            p {
+                font-size: 14px;
+            }
+
+            .snapshot {
+                grid-template-columns: 1fr;
+            }
+
+            .grid {
+                grid-template-columns: 1fr;
+            }
+
+            .stats {
+                grid-template-columns: 1fr;
+            }
+
+            .commitment {
+                grid-template-columns: 1fr;
+            }
+
+            .map-container {
+                height: 250px;
+            }
+
+            .card .num {
+                font-size: 30px;
+            }
+
+            .card .label {
+                font-size: 14px;
+            }
+
+            .icon-wrap {
+                width: 48px;
+                height: 48px;
+            }
+
+            .icon-wrap i {
+                font-size: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Cover Section -->
+    <section class="cover">
+        <div class="center">
+            <img src="Image-logo.jpg" alt="Canary Yellow Logistics LLC Logo" class="logo">
+
+            <div class="title">
+                Capability Statement &amp; Partnership Overview
+            </div>
+
+            <div class="subtitle">
+                Jason Harris | 2025 – 2026
+            </div>
+
+            <!-- Social & Professional Profiles -->
+            <div class="profile-buttons">
+                <a href="https://t.me/Shainshub" target="_blank" class="btn telegram">
+                    <i class="fa-brands fa-telegram"></i> Telegram
+                </a>
+
+                <a href="https://x.com/Shub_saini08" target="_blank" class="btn twitter">
+                    <i class="fa-brands fa-x-twitter"></i> X (Twitter)
+                </a>
+
+                <a href="https://www.instagram.com/shub_saini08?igsh=djV2ZGFlNGxuN2Qw" target="_blank" class="btn instagram">
+                    <i class="fa-brands fa-instagram"></i> Instagram
+                </a>
+
+                <a href="https://www.linkedin.com/in/shubham-saini-a531a9251" target="_blank" class="btn linkedin">
+                    <i class="fa-brands fa-linkedin"></i> LinkedIn
+                </a>
+            </div>
+
+            <!-- Projects / Ventures -->
+            <div class="project-links">
+                <a href="https://pulsenow.io" target="_blank">Pulsenow.io</a>
+                <span>|</span>
+                <a href="https://dashboard.pulsenow.io" target="_blank">Dashboard</a>
+                <span>|</span>
+                <a href="https://antiqua-blockchain.com/" target="_blank">Antiqua Blockchain</a>
+            </div>
+        </div>
+
+        <footer>
+            MC#1533214 | 4545 Murphy Canyon Road, STE 210, San Diego, CA, 92123 |
+            <strong>canaryyellowlogistics.com</strong>
+        </footer>
+    </section>
+
+    <!-- Introduction & Performance Snapshot -->
+    <section class="page">
+        <h1>A Message from Your Partner</h1>
+
+        <p>Dear Team,</p>
+
+        <p>
+            Thank you for taking the time to connect regarding your transportation needs.
+            We are enthusiastic about the opportunity to partner with your team and
+            demonstrate our commitment to operational excellence.
+        </p>
+
+        <p>
+            Canary Yellow Logistics is more than a service provider; we aim to be a seamless
+            extension of your supply chain—a trusted partner dedicated to reliability,
+            transparency, and flawless execution.
+        </p>
+
+        <p>
+            We are fully prepared to begin managing your critical shipments immediately and
+            are confident in our ability to deliver on your strategic goals. This document
+            outlines our core capabilities and our unwavering commitment to your success.
+        </p>
+
+        <h2>My Monthly Performance Snapshot</h2>
+
+        <div class="snapshot">
+            <div class="card">
+                <div class="num">99.4%</div>
+                <div class="label">On-Time Delivery Rate</div>
+            </div>
+            <div class="card">
+                <div class="num">60%</div>
+                <div class="label">Load Acceptance Rate</div>
+            </div>
+            <div class="card">
+                <div class="num">0.01%</div>
+                <div class="label">Claims Rate</div>
+            </div>
+            <div class="card">
+                <div class="num">4.13/5</div>
+                <div class="label">Customer Satisfaction</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Company Overview & Core Services -->
+    <section class="page portfolio">
+        <header class="portfolio-head">
+            <h1>About Canary Yellow Logistics LLC</h1>
+            <p class="lead">
+                Canary Yellow Logistics (CYL) is a full-service logistics and supply chain management partner.
+                We design and execute seamless, data-driven transportation solutions that drive efficiency,
+                reduce cost, and deliver absolute reliability across complex freight ecosystems.
+            </p>
+        </header>
+
+        <h2 class="section-title">Shipment Portfolio <span>to Date</span></h2>
+
+        <div class="grid enhanced-grid">
+
+            <!-- Card -->
+            <div class="card metric">
+                <div class="icon-wrap"><i class="fa-solid fa-ship"></i></div>
+                <h3>Drayage</h3>
+                <p>Port & rail drayage operations</p>
+                <div class="metric-row">
+                    <div class="counter" data-target="1517">0</div>
+                    <span class="unit">Moves</span>
+                </div>
+                <div class="progress"><span style="--p:92%"></span></div>
+            </div>
+
+            <div class="card metric">
+                <div class="icon-wrap"><i class="fa-solid fa-truck"></i></div>
+                <h3>OTR Freight</h3>
+                <p>FTL, Dry Van & Reefer</p>
+                <div class="metric-row">
+                    <div class="counter" data-target="940">0</div>
+                    <span class="unit">Shipments</span>
+                </div>
+                <div class="progress"><span style="--p:88%"></span></div>
+            </div>
+
+            <div class="card metric">
+                <div class="icon-wrap"><i class="fa-solid fa-triangle-exclamation"></i></div>
+                <h3>Hazmat Drayage</h3>
+                <p>Certified hazardous material handling</p>
+                <div class="metric-row">
+                    <div class="counter" data-target="225">0</div>
+                    <span class="unit">Moves</span>
+                </div>
+                <div class="progress"><span style="--p:75%"></span></div>
+            </div>
+
+            <div class="card metric">
+                <div class="icon-wrap"><i class="fa-solid fa-crane"></i></div>
+                <h3>OOG / OT</h3>
+                <p>Oversized & project cargo</p>
+                <div class="metric-row">
+                    <div class="counter" data-target="92">0</div>
+                    <span class="unit">Projects</span>
+                </div>
+                <div class="progress"><span style="--p:68%"></span></div>
+            </div>
+
+            <!-- Capability Cards -->
+            <div class="card capability">
+                <div class="icon-wrap"><i class="fa-solid fa-warehouse"></i></div>
+                <h3>Transloads</h3>
+                <p>Nationwide cross-dock & transload execution</p>
+            </div>
+
+            <div class="card capability">
+                <div class="icon-wrap"><i class="fa-solid fa-stopwatch"></i></div>
+                <h3>Time-Critical</h3>
+                <p>Expedited & guaranteed delivery windows</p>
+            </div>
+
+            <div class="card capability">
+                <div class="icon-wrap"><i class="fa-solid fa-map-location-dot"></i></div>
+                <h3>Cross-Border</h3>
+                <p>USA ↔ Canada seamless movements</p>
+            </div>
+
+            <div class="card capability">
+                <div class="icon-wrap"><i class="fa-solid fa-network-wired"></i></div>
+                <h3>Warehousing</h3>
+                <p>20,000+ partner facilities nationwide</p>
+            </div>
+
+        </div>
+
+        <h2>Operational Coverage</h2>
+
+        <div id="map1" class="map-container"></div>
+    </section>
+
+    <!-- Network Strength & Commitment -->
+    <section class="page">
+        <h1>Our Network is Your Advantage</h1>
+
+        <p>
+            We provide exceptional capacity and coverage through our vigorously vetted,
+            multi-layered carrier network.
+        </p>
+
+        <div id="map2" class="map-container" style="margin-bottom: 80px;"></div>
+
+        <div class="stats">
+            <div class="stat">
+                <div class="num counter" data-target="87342">0</div>
+                <div class="label">Trucking Firms in Database</div>
+            </div>
+
+            <div class="stat">
+                <div class="num counter" data-target="67000">0</div>
+                <div class="label">Vetted Trucking Companies</div>
+            </div>
+
+            <div class="stat">
+                <div class="num counter" data-target="29000">0</div>
+                <div class="label">Owner-Operators</div>
+            </div>
+
+            <div class="stat">
+                <div class="num counter" data-target="12524">0</div>
+                <div class="label">Trusted Partner Carriers</div>
+            </div>
+        </div>
+
+        <p class="capacity">
+            <strong>High-Volume Capacity:</strong><br>
+            Our robust network gives us the proven ability to move
+            80+ containers,
+            70+ DryVans,
+            90+ Flatbeds
+            and all per day across critical US & Canada lanes.
+        </p>
+
+        <h2>Our Service Commitment</h2>
+
+        <div class="commitment">
+            <div class="item">
+                <i class="fa-solid fa-check"></i>
+                <p>Transparent &amp; Fair Pricing: We align with your targets and eliminate surprises.</p>
+            </div>
+
+            <div class="item">
+                <i class="fa-solid fa-check"></i>
+                <p>Proactive Communication: Real-time tracking, instant updates, and immediate PODs.</p>
+            </div>
+
+            <div class="item">
+                <i class="fa-solid fa-check"></i>
+                <p>Single Point of Contact: You get a dedicated logistics partner who manages every detail.</p>
+            </div>
+
+            <div class="item">
+                <i class="fa-solid fa-check"></i>
+                <p>Flexible Payment Terms: We offer Net 10–30 terms to support your cash flow.</p>
+            </div>
+
+            <div class="item">
+                <i class="fa-solid fa-check"></i>
+                <p>Reliable Execution. Zero Excuses. We own the process from pickup to delivery.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Call to Action & Shipper Packet -->
+    <section class="page">
+        <h1>Let's Move Your Next Load</h1>
+
+        <p>
+            We are asking for the opportunity to earn your trust with a single trial shipment.
+            We are confident you will see the Canary Yellow difference.
+        </p>
+
+        <p>
+            We respectfully request to be added to your vendor distribution list for spot quotes
+            and active lane opportunities.
+        </p>
+
+        <h2>Ready to Onboard</h2>
+
+        <div class="packet">
+            <p>Your complete shipper packet is included with this proposal for immediate setup.</p>
+
+            <ul>
+                <li><i class="fa-solid fa-file-lines"></i>MC License Certificate</li>
+                <li><i class="fa-solid fa-file-invoice"></i>W9 Tax ID Form</li>
+                <li><i class="fa-solid fa-building-columns"></i>Banking Details (for ACH/Wire)</li>
+                <li><i class="fa-solid fa-shield-halved"></i>Certificate of Insurance (COI)</li>
+                <li><i class="fa-solid fa-file-signature"></i>Shipper–Broker Agreement</li>
+            </ul>
+        </div>
+
+        <div class="signature-wrapper">
+            <p>Respectfully,</p>
+
+            <p><em>[Digital Signature of Jason Harris]</em></p>
+
+            <div class="signature-name">Jason Harris</div>
+            <div class="signature-title">Logistics Coordinator<br>Canary Yellow Logistics LLC</div>
+
+            <p>MC#: 1533214</p>
+            <p>Address: 4545 Murphy Canyon Road, STE 210, San Diego, CA, 92123</p>
+            <p>Phone: +1 (858) 392-8190 ext.190</p>
+            <p>Email: Jason@cylltd.com</p>
+            <p>Web: canaryyellowlogistics.com</p>
+        </div>
+
+        <div class="footer">
+            © 2025 Canary Yellow Logistics LLC | Confidential Partnership Proposal
+        </div>
+    </section>
+
+    <!-- Scripts -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script>
+        // Counter Animation for all counters
+        document.querySelectorAll('.counter').forEach(counter => {
+            const target = +counter.dataset.target;
+            let current = 0;
+            const duration = 1200;
+            const start = performance.now();
+
+            function update(now) {
+                const progress = Math.min((now - start) / duration, 1);
+                current = Math.floor(progress * target);
+                counter.textContent = current.toLocaleString();
+                if (progress < 1) requestAnimationFrame(update);
+            }
+            requestAnimationFrame(update);
+        });
+
+        // Map 1: Operational Coverage
+        const map1 = L.map('map1').setView([39.5, -98.35], 4);
+
+        L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>'
+        }).addTo(map1);
+
+        const locations = [
+            // USA
+            ["Los Angeles Port", 33.7405, -118.2775],
+            ["New York / NJ Port", 40.6681, -74.0451],
+            ["Houston Port", 29.7325, -95.2627],
+            ["Chicago", 41.8781, -87.6298],
+
+            // Canada (8 major cities)
+            ["Toronto", 43.6532, -79.3832],
+            ["Vancouver", 49.2827, -123.1207],
+            ["Montreal", 45.5019, -73.5674],
+            ["Calgary", 51.0447, -114.0719],
+            ["Edmonton", 53.5461, -113.4938],
+            ["Ottawa", 45.4215, -75.6972],
+            ["Winnipeg", 49.8951, -97.1384],
+            ["Halifax", 44.6488, -63.5752],
+
+            // Middle East
+            ["Riyadh", 24.7136, 46.6753],
+
+            // Russia (2)
+            ["Moscow", 55.7558, 37.6173],
+            ["Saint Petersburg", 59.9311, 30.3609],
+
+            // China (2)
+            ["Shanghai", 31.2304, 121.4737],
+            ["Shenzhen", 22.5431, 114.0579],
+
+            // India
+            ["Delhi", 28.6139, 77.2090],
+            ["Mumbai", 19.0760, 72.8777],
+            ["Kolkata", 22.5726, 88.3639],
+
+            // Bangladesh (Ports)
+            ["Chittagong Port", 22.3569, 91.7832],
+            ["Mongla Port", 22.4845, 89.6080],
+
+            // Vietnam
+            ["Ho Chi Minh City", 10.8231, 106.6297],
+
+            // Australia
+            ["Melbourne", -37.8136, 144.9631],
+
+            // United Kingdom
+            ["London", 51.5074, -0.1278],
+
+            // Iceland
+            ["Reykjavík", 64.1466, -21.9426]
+        ];
+
+        locations.forEach(loc => {
+            L.marker([loc[1], loc[2]]).addTo(map1).bindPopup(loc[0]);
+        });
+
+        // Map 2: Network Advantage
+        const map2 = L.map('map2').setView([40, -96], 4);
+
+        L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>'
+        }).addTo(map2);
+
+        const coverage = [
+            /* =========================
+               UNITED STATES – PORTS
+            ========================== */
+
+            ["Los Angeles / Long Beach, CA", 33.7542, -118.2165],   // LA/LB
+            ["Oakland, CA", 37.8044, -122.2712],
+            ["Norfolk, VA", 36.8508, -76.2859],
+            ["Baltimore, MD", 39.2904, -76.6122],
+            ["New York / New Jersey", 40.6840, -74.0062],
+            ["Houston, TX", 29.7604, -95.3698],
+            ["Mobile, AL", 30.6954, -88.0399],
+            ["New Orleans, LA", 29.9511, -90.0715],
+            ["Jacksonville, FL", 30.3322, -81.6557],
+            ["Tampa, FL", 27.9506, -82.4572],
+            ["Seattle / Tacoma, WA", 47.6062, -122.3321],
+
+            /* =========================
+               UNITED STATES – RAIL RAMPS
+            ========================== */
+
+            ["Chicago Rail Hub, IL", 41.8781, -87.6298],
+            ["Detroit Rail Hub, MI", 42.3314, -83.0458],
+            ["Nashville Rail Hub, TN", 36.1627, -86.7816],
+            ["El Paso Rail Hub, TX", 31.7619, -106.4850],
+            ["Norfolk Southern Ramp, OH", 40.4173, -82.9071],
+
+            /* =========================
+               CANADA – PORT & RAIL
+            ========================== */
+
+            ["Vancouver / Pitt Meadows, BC", 49.2345, -122.6890],
+            ["Calgary Intermodal Terminal, AB", 51.0447, -114.0719],
+            ["Canadian Pacific Railway (CPR)", 52.9399, -106.4509],
+
+            /* =========================
+               MAJOR CANADIAN CITIES
+            ========================== */
+
+            ["Toronto, ON", 43.6532, -79.3832],
+            ["Ottawa, ON", 45.4215, -75.6972],
+            ["Montreal, QC", 45.5019, -73.5674],
+            ["Edmonton, AB", 53.5461, -113.4938],
+            ["Winnipeg, MB", 49.8951, -97.1384],
+            ["Halifax, NS", 44.6488, -63.5752],
+
+            /* =========================
+               HIGH-VOLUME FREIGHT ZONES
+               (Aggregated Coverage)
+            ========================== */
+
+            ["California Statewide", 36.7783, -119.4179],
+            ["NY / NJ Freight Zone", 40.7128, -74.0060],
+            ["Norfolk VA Freight Zone", 36.8508, -76.2859],
+            ["Baltimore MD Freight Zone", 39.2904, -76.6122],
+            ["Houston TX Freight Zone", 29.7604, -95.3698],
+            ["Seattle / Tacoma Freight Zone", 47.6062, -122.3321],
+            ["Chicago IL Freight Zone", 41.8781, -87.6298],
+            ["El Paso TX Freight Zone", 31.7619, -106.4850],
+            ["Jacksonville FL Freight Zone", 30.3322, -81.6557],
+            ["Tampa FL Freight Zone", 27.9506, -82.4572]
+        ];
+
+        coverage.forEach(loc => {
+            L.circleMarker([loc[1], loc[2]], {
+                radius: 8,
+                fillColor: "#FFD400",
+                color: "#FFD400",
+                weight: 1,
+                fillOpacity: 0.85
+            }).addTo(map2).bindPopup(loc[0]);
+        });
+    </script>
+
+</body>
+</html>
