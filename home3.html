@@ -2,38 +2,67 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Operational Coverage | Canary Yellow Logistics</title>
+<title>Company Overview & Core Services</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+<!-- Leaflet Map -->
+<link
+  rel="stylesheet"
+  href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+/>
+
+<!-- Icons -->
+<link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+/>
 
 <style>
 :root {
+    --black:#050505;
+    --navy:#0A1F44;
     --yellow:#FFD400;
     --white:#ffffff;
+    --soft:white;
+}
+
+* {
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
 }
 
 body {
-    margin:0;
     background: radial-gradient(circle at top, #0b0b0b, #000);
     font-family: "Helvetica Neue", Arial, sans-serif;
     color: rgba(255,255,255,0.88);
+    line-height:1.75;
 }
 
 .page {
     max-width:1200px;
     margin:auto;
-    padding:80px 40px 120px;
+    padding:90px 40px 120px;
 }
 
-h2 {
-    font-size:30px;
+h1,h2 {
+    color:var(--white);
     font-weight:700;
     padding-left:22px;
     position:relative;
 }
 
-h2::before {
+h1 {
+    font-size:36px;
+    margin-bottom:36px;
+}
+
+h2 {
+    font-size:30px;
+    margin:90px 0 50px;
+}
+
+h1::before,h2::before {
     content:"";
     position:absolute;
     left:0;
@@ -43,198 +72,179 @@ h2::before {
     background:linear-gradient(var(--yellow),transparent);
 }
 
-#earth {
-    width:100%;
-    height:560px;
-    margin-top:50px;
-    border-radius:22px;
-    overflow:hidden;
-    border:1px solid rgba(255,255,255,0.15);
-    background:radial-gradient(circle at center, #0b0b0b, #000);
-    cursor:grab;
+p {
+    max-width:950px;
+    font-size:17px;
+    margin-bottom:28px;
 }
-#earth:active { cursor:grabbing; }
+
+/* Capabilities Grid */
+.grid {
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+    gap:36px;
+}
+
+.card {
+    background:linear-gradient(180deg,rgba(10,31,68,0.4),rgba(10,31,68,0.15));
+    border:1px solid rgba(255,255,255,0.12);
+    border-radius:20px;
+    padding:34px 30px 40px;
+    position:relative;
+}
+
+.card i {
+    font-size:34px;
+    color:var(--yellow);
+    margin-bottom:18px;
+}
+
+.card h3 {
+    font-size:20px;
+    margin-bottom:12px;
+    color:var(--white);
+}
+
+.card p {
+    font-size:15.5px;
+    margin-bottom:14px;
+}
+
+.counter {
+    font-size:26px;
+    font-weight:700;
+    color:var(--yellow);
+}
+
+/* Map */
+#map {
+    width:100%;
+    height:420px;
+    border-radius:22px;
+    margin-top:50px;
+    border:1px solid rgba(255,255,255,0.15);
+}
 </style>
 </head>
 
 <body>
+
 <div class="page">
-<h2>Operational Coverage</h2>
-<div id="earth"></div>
+
+<h1>About Canary Yellow Logistics LLC</h1>
+
+<p>
+Canary Yellow Logistics (CYL) is a full-service logistics and supply chain management partner.
+We specialize in designing and executing seamless, data-driven transportation solutions that
+drive efficiency and reduce costs for our clients. From complex drayage to critical OTR shipments
+and integrated warehousing, we are your single point of contact for end-to-end freight management.
+</p>
+
+<h2>Core Capabilities</h2>
+
+<div class="grid">
+
+<div class="card">
+<i class="fa-solid fa-ship"></i>
+<h3>Drayage</h3>
+<p>Expert port and rail drayage.</p>
+<div class="counter" data-target="1417">0</div>
 </div>
 
-<!-- THREE.JS -->
-<script src="https://unpkg.com/three@0.158.0/build/three.min.js"></script>
+<div class="card">
+<i class="fa-solid fa-truck"></i>
+<h3>OTR (Over-the-Road)</h3>
+<p>Full Truckload, Dry Van, and Temperature-Controlled (Reefer).</p>
+<div class="counter" data-target="340">0</div>
+</div>
 
+<div class="card">
+<i class="fa-solid fa-triangle-exclamation"></i>
+<h3>Hazmat Drayage</h3>
+<p>Fully certified and insured for hazardous material transport.</p>
+<div class="counter" data-target="425">0</div>
+</div>
+
+<div class="card">
+<i class="fa-solid fa-crane"></i>
+<h3>OOG (Out-of-Gauge)</h3>
+<p>Specializing in complex, oversized, and project-based freight.</p>
+<div class="counter" data-target="9">0</div>
+</div>
+
+<div class="card">
+<i class="fa-solid fa-warehouse"></i>
+<h3>Transloads</h3>
+<p>Efficient cross-dock and transloading services nationwide.</p>
+</div>
+
+<div class="card">
+<i class="fa-solid fa-stopwatch"></i>
+<h3>Time-Critical</h3>
+<p>Expedited and guaranteed services for urgent shipments.</p>
+</div>
+
+<div class="card">
+<i class="fa-solid fa-map-location-dot"></i>
+<h3>Cross-Border</h3>
+<p>Seamless freight management for USA ↔ Canada lanes.</p>
+</div>
+
+<div class="card">
+<i class="fa-solid fa-network-wired"></i>
+<h3>Warehousing</h3>
+<p>Flexible storage solutions via 20,000+ partner warehouses nationwide.</p>
+</div>
+
+</div>
+
+<h2>Operational Coverage</h2>
+
+<div id="map"></div>
+
+</div>
+
+<!-- Counter Animation -->
 <script>
-/* =========================
-   SCENE SETUP
-========================= */
-const container = document.getElementById("earth");
-const scene = new THREE.Scene();
+const counters = document.querySelectorAll('.counter');
 
-const camera = new THREE.PerspectiveCamera(
-    45,
-    container.clientWidth / container.clientHeight,
-    0.1,
-    1000
-);
-camera.position.z = 3.2;
+counters.forEach(counter => {
+    let start = 1;
+    let end = +counter.dataset.target;
+    let speed = 40;
 
-const renderer = new THREE.WebGLRenderer({ antialias:true, alpha:true });
-renderer.setSize(container.clientWidth, container.clientHeight);
-renderer.setPixelRatio(window.devicePixelRatio);
-container.appendChild(renderer.domElement);
-
-/* =========================
-   LIGHTING (SUN)
-========================= */
-scene.add(new THREE.AmbientLight(0x404040, 0.6));
-
-const sunLight = new THREE.DirectionalLight(0xffffff, 1.1);
-sunLight.position.set(5, 2, 5);
-scene.add(sunLight);
-
-/* =========================
-   EARTH TEXTURES (NASA)
-========================= */
-const loader = new THREE.TextureLoader();
-
-const earthMap = loader.load(
-  "https://raw.githubusercontent.com/ajdruff/earth-textures/main/8k_earth_daymap.jpg"
-);
-const earthBump = loader.load(
-  "https://raw.githubusercontent.com/ajdruff/earth-textures/main/8k_earth_normal_map.jpg"
-);
-const earthSpec = loader.load(
-  "https://raw.githubusercontent.com/ajdruff/earth-textures/main/8k_earth_specular_map.jpg"
-);
-
-/* =========================
-   EARTH MESH
-========================= */
-const earth = new THREE.Mesh(
-  new THREE.SphereGeometry(1, 128, 128),
-  new THREE.MeshPhongMaterial({
-      map: earthMap,
-      normalMap: earthBump,
-      specularMap: earthSpec,
-      specular: new THREE.Color(0x333333),
-      shininess: 15
-  })
-);
-
-/* Real axial tilt */
-earth.rotation.z = THREE.MathUtils.degToRad(23.44);
-scene.add(earth);
-
-/* =========================
-   ATMOSPHERE GLOW
-========================= */
-const atmosphere = new THREE.Mesh(
-  new THREE.SphereGeometry(1.03, 128, 128),
-  new THREE.MeshBasicMaterial({
-      color:0x4db2ff,
-      transparent:true,
-      opacity:0.12,
-      side:THREE.BackSide
-  })
-);
-scene.add(atmosphere);
-
-/* =========================
-   LAT/LON → SPHERE
-========================= */
-function latLon(lat, lon, r=1.01) {
-    const phi = (90-lat)*Math.PI/180;
-    const theta = (lon+180)*Math.PI/180;
-    return new THREE.Vector3(
-        -r*Math.sin(phi)*Math.cos(theta),
-         r*Math.cos(phi),
-         r*Math.sin(phi)*Math.sin(theta)
-    );
-}
-
-/* =========================
-   PIN POINTS
-========================= */
-const pinGeo = new THREE.SphereGeometry(0.025, 24, 24);
-const pinMat = new THREE.MeshBasicMaterial({ color:0xFFD400 });
-
-[
-    [33.7405,-118.2775], // Los Angeles
-    [40.6681,-74.0451],  // NY/NJ
-    [29.7325,-95.2627],  // Houston
-    [41.8781,-87.6298],  // Chicago
-    [43.6532,-79.3832]   // Toronto
-].forEach(p=>{
-    const pin = new THREE.Mesh(pinGeo,pinMat);
-    pin.position.copy(latLon(p[0],p[1]));
-    earth.add(pin);
-});
-
-/* =========================
-   USER ROTATION (MOUSE + TOUCH)
-========================= */
-let isDragging = false;
-let prev = { x:0, y:0 };
-let velocity = { x:0, y:0 };
-
-container.addEventListener("mousedown", e=>{
-    isDragging = true;
-    prev.x = e.clientX;
-    prev.y = e.clientY;
-});
-
-container.addEventListener("mousemove", e=>{
-    if(!isDragging) return;
-    velocity.y = (e.clientX - prev.x) * 0.002;
-    velocity.x = (e.clientY - prev.y) * 0.002;
-    prev.x = e.clientX;
-    prev.y = e.clientY;
-});
-
-container.addEventListener("mouseup", ()=> isDragging=false);
-container.addEventListener("mouseleave", ()=> isDragging=false);
-
-/* Touch */
-container.addEventListener("touchstart", e=>{
-    isDragging = true;
-    prev.x = e.touches[0].clientX;
-    prev.y = e.touches[0].clientY;
-});
-container.addEventListener("touchmove", e=>{
-    velocity.y = (e.touches[0].clientX - prev.x) * 0.002;
-    velocity.x = (e.touches[0].clientY - prev.y) * 0.002;
-    prev.x = e.touches[0].clientX;
-    prev.y = e.touches[0].clientY;
-});
-container.addEventListener("touchend", ()=> isDragging=false);
-
-/* =========================
-   ANIMATION LOOP
-========================= */
-function animate(){
-    requestAnimationFrame(animate);
-
-    earth.rotation.y += velocity.y;
-    earth.rotation.x += velocity.x;
-
-    velocity.x *= 0.95;
-    velocity.y *= 0.95;
-
-    renderer.render(scene,camera);
-}
-animate();
-
-/* =========================
-   RESIZE
-========================= */
-window.addEventListener("resize", ()=>{
-    camera.aspect = container.clientWidth/container.clientHeight;
-    camera.updateProjectionMatrix();
-    renderer.setSize(container.clientWidth,container.clientHeight);
+    let update = () => {
+        let value = Math.ceil(start + (end - start) / speed);
+        start = value;
+        counter.textContent = value.toLocaleString();
+        if (value < end) requestAnimationFrame(update);
+        else counter.textContent = end.toLocaleString();
+    };
+    update();
 });
 </script>
+
+<!-- Map -->
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+const map = L.map('map').setView([39.5, -98.35], 4);
+
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: ''
+}).addTo(map);
+
+const locations = [
+    ["Los Angeles Port", 33.7405, -118.2775],
+    ["New York / NJ Port", 40.6681, -74.0451],
+    ["Houston Port", 29.7325, -95.2627],
+    ["Toronto", 43.6532, -79.3832],
+    ["Chicago", 41.8781, -87.6298]
+];
+
+locations.forEach(loc => {
+    L.marker([loc[1], loc[2]]).addTo(map);
+});
+</script>
+
 </body>
 </html>
