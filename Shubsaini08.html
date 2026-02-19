@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Shubham Saini</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<style>
+
+:root{
+--bg:#0b0e13;
+--panel:#12161d;
+--border:#1f2632;
+--blue:#2f80ff;
+--soft:#9aa4b2;
+--glow: #2f80ff;
+--accent: #ff4081;
+}
+
+*{margin:0;padding:0;box-sizing:border-box}
+
+body{
+font-family:Inter, sans-serif;
+background:var(--bg);
+color:white;
+overflow-x:hidden;
+line-height:1.6;
+}
+
+canvas{
+position:fixed;
+inset:0;
+z-index:-1;
+opacity:.35;
+}
+
+/* Layout */
+
+.container{
+max-width:1200px;
+margin:auto;
+padding:clamp(40px, 8vw, 80px) clamp(15px, 4vw, 20px);
+}
+
+.hero{
+padding:clamp(60px, 15vw, 120px) clamp(20px, 5vw, 40px);
+text-align:center;
+background:linear-gradient(135deg, rgba(47,128,255,0.1), rgba(255,64,129,0.1));
+border-radius:clamp(10px, 3vw, 20px);
+box-shadow:0 10px 30px rgba(0,0,0,0.5);
+}
+
+.hero h1{
+font-size:clamp(32px, 8vw, 60px);
+font-weight:700;
+background:linear-gradient(to right, var(--blue), var(--accent));
+-webkit-background-clip:text;
+-webkit-text-fill-color:transparent;
+background-clip:text;
+margin-bottom:20px;
+}
+
+.hero p{
+margin-top:20px;
+max-width:700px;
+margin-left:auto;
+margin-right:auto;
+color:var(--soft);
+line-height:1.6;
+font-size:clamp(14px, 3vw, 18px);
+}
+
+section{
+margin-top:clamp(60px, 12vw, 100px);
+}
+
+h2{
+font-size:clamp(24px, 5vw, 32px);
+margin-bottom:clamp(20px, 4vw, 40px);
+border-bottom:2px solid var(--blue);
+padding-bottom:clamp(10px, 2vw, 15px);
+color:var(--blue);
+text-transform:uppercase;
+letter-spacing:1px;
+}
+
+/* Cards */
+
+.grid{
+display:grid;
+grid-template-columns:repeat(auto-fit, minmax(min(100%, 280px), 1fr));
+gap:clamp(15px, 3vw, 30px);
+}
+
+.card{
+background:linear-gradient(180deg,#12161d,#0e1117);
+border:1px solid var(--border);
+border-radius:clamp(12px, 2vw, 20px);
+padding:clamp(20px, 4vw, 30px);
+transition:.4s ease;
+box-shadow:0 4px 15px rgba(0,0,0,0.3);
+}
+
+.card:hover{
+transform:translateY(-10px) scale(1.02);
+border-color:var(--accent);
+box-shadow:0 15px 40px rgba(47,128,255,0.3);
+}
+
+/* Experience Cards */
+
+.role{
+font-weight:700;
+font-size:clamp(16px, 3vw, 20px);
+color:var(--blue);
+margin-bottom:8px;
+}
+
+.company{
+font-weight:600;
+font-size:clamp(14px, 2.5vw, 16px);
+color:var(--accent);
+margin-bottom:4px;
+}
+
+.meta{
+color:var(--soft);
+font-size:clamp(12px, 2vw, 14px);
+margin:6px 0;
+display:flex;
+flex-wrap:wrap;
+gap:8px;
+align-items:center;
+}
+
+.badge{
+background:rgba(47,128,255,0.15);
+padding:4px 10px;
+border-radius:12px;
+font-size:clamp(10px, 1.8vw, 12px);
+white-space:nowrap;
+}
+
+.timer{
+color:var(--accent);
+font-weight:600;
+font-size:clamp(11px, 2vw, 13px);
+margin-top:8px;
+padding:8px 12px;
+background:rgba(255,64,129,0.1);
+border-radius:8px;
+border-left:3px solid var(--accent);
+font-family:'Courier New', monospace;
+}
+
+.desc{
+color:#cbd3df;
+margin-top:clamp(8px, 2vw, 12px);
+line-height:1.6;
+font-size:clamp(13px, 2.5vw, 15px);
+}
+
+.location{
+display:flex;
+align-items:center;
+gap:6px;
+color:var(--soft);
+font-size:clamp(12px, 2vw, 13px);
+margin-top:6px;
+}
+
+.location i{
+color:var(--blue);
+}
+
+/* Skills */
+
+.skills{
+display:flex;
+flex-wrap:wrap;
+gap:clamp(8px, 2vw, 12px);
+}
+
+.skill{
+border:1px solid var(--border);
+padding:clamp(8px, 1.5vw, 10px) clamp(12px, 3vw, 20px);
+border-radius:30px;
+color:#cfd6e3;
+background:rgba(47,128,255,0.05);
+transition:.3s;
+font-size:clamp(12px, 2vw, 14px);
+}
+
+.skill:hover{
+background:var(--blue);
+color:white;
+border-color:var(--blue);
+transform:translateY(-2px);
+}
+
+/* Links */
+
+a{
+color:var(--blue);
+text-decoration:none;
+transition:.3s;
+word-break:break-word;
+}
+
+a:hover{
+color:var(--accent);
+}
+
+/* Contact Icons */
+
+.contact-icon{
+margin-right:12px;
+color:var(--blue);
+font-size:clamp(16px, 3vw, 20px);
+transition:.3s;
+flex-shrink:0;
+}
+
+.contact-item{
+display:flex;
+align-items:center;
+margin-bottom:clamp(10px, 2vw, 15px);
+font-size:clamp(13px, 2.5vw, 15px);
+}
+
+.contact-item a{
+display:inline-flex;
+align-items:center;
+}
+
+.contact-item:hover .contact-icon{
+color:var(--accent);
+transform:scale(1.1);
+}
+
+/* Footer */
+
+footer{
+margin-top:clamp(60px, 12vw, 120px);
+color:var(--soft);
+text-align:center;
+font-size:clamp(12px, 2vw, 14px);
+border-top:1px solid var(--border);
+padding-top:20px;
+padding-bottom:20px;
+}
+
+@keyframes glow {
+0% { text-shadow: 0 0 5px var(--glow); }
+50% { text-shadow: 0 0 20px var(--glow); }
+100% { text-shadow: 0 0 5px var(--glow); }
+}
+
+.hero h1 {
+animation: glow 2s infinite;
+}
+
+/* Ensure proper spacing on very small screens */
+@media (max-width: 480px) {
+  .hero {
+    padding: 40px 15px;
+  }
+  
+  .contact-item {
+    flex-wrap: wrap;
+  }
+  
+  .grid {
+    gap: 15px;
+  }
+}
+
+</style>
+</head>
+
+<body>
+
+<canvas id="bg"></canvas>
+
+<div class="container">
+
+<div class="hero">
+<h1>Shubham Saini</h1>
+<p>
+Multidisciplinary Pro — CUDA & Python Development · AI & Game Systems · 3D Animation · Logistics & Forwarding.<br><br>
+Careful what you type — I might be your echo.
+</p>
+</div>
+
+<section>
+  <h2>Experience</h2>
+
+  <div class="grid">
+
+    <!-- Canary Yellow Logistics -->
+    <div class="card">
+      <div class="role">Supply Chain & Business Developer Coordinator</div>
+      <div class="company">Canary Yellow Logistics Pvt Ltd</div>
+
+      <a href="https://canaryyellowlogistics.com/home/" target="_blank">
+        Canary Yellow Logistics Pvt Ltd  — Site
+      </a>
+
+      <div class="meta">
+        <span class="badge">Full-time</span>
+        <span>Aug 2025 – Present</span>
+      </div>
+
+      <div class="timer" data-start="2025-08-01T00:00:00-04:00"></div>
+
+      <div class="location">
+        <i class="fas fa-map-marker-alt"></i>
+        4545 Murphy Canyon Road, STE 210, San Diego, CA 92123 • On-site
+      </div>
+    </div>
+
+    <!-- Pulse Platform -->
+    <div class="card">
+      <div class="role">Marketing Manager</div>
+      <div class="company">Pulse Platform</div>
+
+      <a href="https://www.pulsenow.io/" target="_blank">
+        Pulse Platform — Site
+      </a>
+
+      <div class="meta">
+        <span class="badge">Full-time</span>
+        <span>Apr 10, 2025 – Present</span>
+      </div>
+
+      <div class="timer" data-start="2025-04-10T00:00:00-04:00"></div>
+
+      <div class="location">
+        <i class="fas fa-map-marker-alt"></i>
+        United States • Hybrid
+      </div>
+
+      <div class="desc">
+        Social Media Manager (pulsenow.io) – Creating fast, bold content strategy for crypto & stock alerts.
+        Strategic Marketing Management & Operations.
+      </div>
+
+      <div class="meta" style="margin-top:12px;">
+        <span class="badge">Strategic Marketing</span>
+        <span class="badge">Operations Management</span>
+        <span class="badge">+22 skills</span>
+      </div>
+    </div>
+
+    <!-- Easy Peasy Trucking -->
+    <div class="card">
+      <div class="role">Logistics Coordinator</div>
+      <div class="company">Easy Peasy Trucking</div>
+
+      <a href="https://www.eptrucking.us/" target="_blank">
+        Eptrucking  — Site
+      </a>
+
+      <div class="meta">
+        <span class="badge">Full-time</span>
+        <span>Apr 2025 – Aug 2025</span>
+      </div>
+
+      <div class="timer"
+           data-start="2025-04-01T00:00:00-04:00"
+           data-end="2025-08-07T01:08:17-04:00"></div>
+
+      <div class="location">
+        <i class="fas fa-map-marker-alt"></i>
+        United States • On-site
+      </div>
+
+      <div class="desc">
+        Drayage Coordinator at Eptrucking US – Overseeing end-to-end container operations,
+        dispatching, and routing optimization.
+      </div>
+
+      <div class="meta" style="margin-top:12px;">
+        <span class="badge">Logistic Support</span>
+        <span class="badge">Dispatching</span>
+        <span class="badge">+8 skills</span>
+      </div>
+    </div>
+
+    <!-- IndusInd Bank -->
+    <div class="card">
+      <div class="role">Senior Loan Officer</div>
+      <div class="company">IndusInd Bank</div>
+
+      <a href="https://www.bfil.co.in/" target="_blank">
+        IndusInd Bank — Site
+      </a>
+
+      <div class="meta">
+        <span class="badge">Full-time</span>
+        <span>Oct 2023 – Jan 2024</span>
+      </div>
+
+      <div class="timer"
+           data-start="2023-10-01T00:00:00-04:00"
+           data-end="2024-01-31T02:13:00-04:00"></div>
+
+      <div class="location">
+        <i class="fas fa-map-marker-alt"></i>
+        Ambala, Haryana, India • Remote
+      </div>
+
+      <div class="desc">
+        Microfinance operations, loan cycles, collections, field operations and credit risk management.
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section>
+<h2>Education</h2>
+
+<div class="grid">
+
+<div class="card">
+<div class="role">Police DAV Public School</div>
+<div class="meta">2006 – 2022</div>
+<a href="https://pdavpublicschool.in/" target="_blank">pdavpublicschool.in</a>
+</div>
+
+<div class="card">
+<div class="role">Bachelor of Commerce (BCom)</div>
+<div class="meta">Business Administration & Management</div>
+<div class="meta">2023 – 2026</div>
+<div class="company">Swami Vivekananda Subharti University</div>
+<a href="https://subharti.org/" target="_blank">subharti.org</a>
+</div>
+
+</div>
+</section>
+
+<section>
+<h2>Skills</h2>
+
+<div class="skills">
+<span class="skill">CUDA</span>
+<span class="skill">Python</span>
+<span class="skill">AI Systems</span>
+<span class="skill">3D Animation</span>
+<span class="skill">Game Development</span>
+<span class="skill">Logistics</span>
+<span class="skill">Freight Forwarding</span>
+<span class="skill">Crypto Marketing</span>
+<span class="skill">Content Strategy</span>
+<span class="skill">Supply Chain Management</span>
+<span class="skill">Business Development</span>
+<span class="skill">Operations Management</span>
+</div>
+
+</section>
+
+<section>
+<h2>Contact</h2>
+
+<div class="grid">
+
+<div class="card">
+<div class="contact-item">
+<i class="fas fa-envelope contact-icon"></i>
+<div>
+<strong>Email</strong><br>
+<a href="mailto:shubhamsaini0316@gmail.com">shubhamsaini0316@gmail.com</a>
+</div>
+</div>
+</div>
+
+<div class="card">
+<div class="contact-item">
+<i class="fab fa-whatsapp contact-icon"></i>
+<div>
+<strong>WhatsApp</strong><br>
+<a href="https://wa.me/919485648588">+91 94856 48588</a>
+</div>
+</div>
+</div>
+
+<div class="card">
+<div class="contact-item"><i class="fab fa-telegram contact-icon"></i><a href="https://t.me/Shainshub">Telegram: @Shainshub</a></div>
+<div class="contact-item"><i class="fab fa-instagram contact-icon"></i><a href="https://www.instagram.com/shub_saini08?igsh=djV2ZGFlNGxuN2Qw">Instagram: @shub_saini08</a></div>
+<div class="contact-item"><i class="fab fa-twitter contact-icon"></i><a href="https://x.com/Shub_saini08">X: @Shub_saini08</a></div>
+<div class="contact-item"><i class="fab fa-discord contact-icon"></i>Discord: @Shubsaini08</div>
+<div class="contact-item"><i class="fab fa-snapchat contact-icon"></i><a href="https://www.snapchat.com/add/shubsaini08">Snapchat: @shubsaini08</a></div>
+</div>
+
+<div class="card">
+<strong>Websites</strong><br><br>
+<a href="https://knoxex.com">knoxex.com</a><br>
+<a href="https://pulenow.io">pulenow.io</a><br>
+<a href="https://antiqua-blockchain.com">antiqua-blockchain.com</a>
+</div>
+
+</div>
+</section>
+
+<footer>
+© 2026 Shubham Saini
+</footer>
+
+</div>
+
+<script>
+
+// Particle background animation
+const c=document.getElementById("bg");
+const x=c.getContext("2d");
+resize();
+window.onresize=resize;
+
+let p=[...Array(150)].map(()=>({
+x:Math.random()*c.width,
+y:Math.random()*c.height,
+vx:(Math.random()-.5)*.6,
+vy:(Math.random()-.5)*.6
+}));
+
+function resize(){
+c.width=innerWidth;
+c.height=innerHeight;
+}
+
+function loop(){
+x.clearRect(0,0,c.width,c.height);
+p.forEach(a=>{
+a.x+=a.vx;a.y+=a.vy;
+if(a.x<0||a.x>c.width)a.vx*=-1;
+if(a.y<0||a.y>c.height)a.vy*=-1;
+
+x.fillStyle="#2f80ff";
+x.fillRect(a.x,a.y,2,2);
+
+p.forEach(b=>{
+let d=Math.hypot(a.x-b.x,a.y-b.y);
+if(d<150){
+x.strokeStyle=`rgba(47,128,255,${1-d/150})`;
+x.lineWidth = 1 + (1 - d/150);
+x.beginPath();
+x.moveTo(a.x,a.y);
+x.lineTo(b.x,b.y);
+x.stroke();
+}
+});
+});
+requestAnimationFrame(loop);
+}
+
+loop();
+
+// Timer functionality
+function updateTimers() {
+  const timers = document.querySelectorAll('.timer');
+  
+  timers.forEach(timer => {
+    const startDate = new Date(timer.dataset.start);
+    const endDate = timer.dataset.end ? new Date(timer.dataset.end) : new Date();
+    
+    // Calculate difference
+    const diff = endDate - startDate;
+    
+    // Calculate time units
+    const seconds = Math.floor(diff / 1000);
+    const minutes = Math.floor(seconds / 60);
+    const hours = Math.floor(minutes / 60);
+    const days = Math.floor(hours / 24);
+    const months = Math.floor(days / 30);
+    const years = Math.floor(months / 12);
+    
+    // Calculate remaining units
+    const remMonths = months % 12;
+    const remDays = days % 30;
+    const remHours = hours % 24;
+    const remMinutes = minutes % 60;
+    const remSeconds = seconds % 60;
+    
+    // Build display string
+    let display = '';
+    
+    if (years > 0) {
+      display += `${years} yr${years !== 1 ? 's' : ''} `;
+    }
+    if (remMonths > 0) {
+      display += `${remMonths} mo${remMonths !== 1 ? 's' : ''} `;
+    }
+    if (remDays > 0) {
+      display += `${remDays} day${remDays !== 1 ? 's' : ''} `;
+    }
+    if (remHours > 0 || (!timer.dataset.end && days === 0)) {
+      display += `${remHours} hr${remHours !== 1 ? 's' : ''} `;
+    }
+    if (remMinutes > 0 || (!timer.dataset.end && hours === 0)) {
+      display += `${remMinutes} min${remMinutes !== 1 ? 's' : ''} `;
+    }
+    if (!timer.dataset.end && days === 0 && hours === 0) {
+      display += `${remSeconds} sec${remSeconds !== 1 ? 's' : ''}`;
+    }
+    
+    // Add prefix for ongoing roles
+    if (!timer.dataset.end) {
+      timer.innerHTML = `⏱️ Duration: ${display.trim()}`;
+    } else {
+      timer.innerHTML = `📅 Total: ${display.trim()}`;
+    }
+  });
+}
+
+// Update timers immediately and then every second
+updateTimers();
+setInterval(updateTimers, 1000);
+
+</script>
+
+</body>
+</html>
